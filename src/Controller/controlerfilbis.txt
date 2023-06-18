@@ -1,0 +1,187 @@
+<?php
+namespace App\Controller;
+
+use App\Entity\Critic;
+use App\Entity\Selection;
+use App\Form\CriticType;
+use App\Form\SelectionType;
+use App\Repository\FilmRepository;
+use App\Repository\CriticRepository;
+use App\Repository\SelectionRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class FilmShowController extends AbstractController
+{
+    #[Route('/film/{id}', name: 'film_show')]
+    public function index(FilmRepository $filmRepository, int $id, EntityManagerInterface $manager, Request $request, UserInterface $user, CriticRepository $criticRepository, SelectionRepository $selectionRepository): Response
+    {
+        $film = $filmRepository->find($id);
+       
+        $selection = new Selection();
+        $formSelection = $this->createForm(SelectionType::class, $selection);
+        $formSelection->handleRequest($request);
+
+        $critic = new Critic();
+        $formCritic = $this->createForm(CriticType::class, $critic);
+        $formCritic->handleRequest($request);
+        $formCritic = $this->createForm(CriticType::class, new Critic());
+        $formCritic->handleRequest($request);
+    
+        if ($this->handleCriticForm($formCritic, $film, $manager)) {
+            return $this->redirectToFilmShow($film->getId());
+        }
+
+        /* if ($formCritic->isSubmitted() && $formCritic->isValid()) {
+         
+            $critic = $formCritic->getData();
+
+            $critic->setUser($this->getUser());
+            $critic->setFilm($film);
+
+            $critic->setDate(new \DateTime('@'.strtotime('now')));
+         
+            $manager->persist($critic);
+            $manager->flush();
+
+            $newNoteFilm = (int)$criticRepository->getAverageNoteByFilm($film);
+
+            $film->setRating($newNoteFilm);
+
+            return $this->redirectToRoute('film_show', ['id' => $film->getId()]);
+        }
+ */
+        $userCritic = $this->getUserCritic($criticRepository, $film);
+
+         $selection = new Selection(); 
+         $selection->setUser($this->getUser()); 
+        $formCreateSelection = $this->createForm(SelectionType::class, $selection);
+        
+       /* $formCreateSelection->handleRequest($request);
+    
+        if ($formCreateSelection->isSubmitted() && $formCreateSelection->isValid()) {
+    
+            $manager->persist($selection);
+            $manager->flush();
+    
+            return $this->redirectToRoute('film_show', ['id' => $film->getId()]);
+        } */
+    
+        return $this->render('film_show/film_show.html.twig', [
+            'userCritic' => $userCritic,
+            'film' => $film,
+            'formCritic' => $formCritic->createView(),
+            'formCreateSelection' => $formCreateSelection->createView(),
+            'errorMessage' => isset($errorMessage) ? $errorMessage : null,
+            'successMessage' => isset($successMessage) ? $successMessage : null,
+        ]);
+    }  
+
+    #[Route('/film/{id}/add', name: 'add_film')]
+    public function addFilmToPlaylist(Request $request, int $id, EntityManagerInterface $manager, FilmRepository $filmRepository, SelectionRepository $selectionRepository)
+    {
+        $formData = $request->request->all();
+
+        $film = $filmRepository->find($id);  
+        $selectionId = $formData["selectionId"];
+
+        $selection = $selectionRepository->find($selectionId);
+        if (!$selection) {
+            return new JsonResponse(['success' => false, 'errors' => 'La sélection n\'existe pas.']);
+        }
+    
+        $sql = "INSERT INTO selection_film (selection_id, film_id) VALUES (:selectionId, :filmId)";
+        $params = ['selectionId' => $selectionId, 'filmId' => $film->getId()];
+    
+        try {
+            $statement = $manager->getConnection()->prepare($sql);
+            $statement->executeQuery($params);
+    
+            return new JsonResponse([
+                'success' => true,
+                'data' => $selectionId,
+                'filmName' => $film->getTitle(),
+                'filmPoster' => $film->getPoster()
+            ]);
+        } catch (\Exception $exception) {
+            return new JsonResponse(['success' => false, 'errors' => $exception->getMessage()]);
+        }
+    }    
+
+    public function getUserCritic (CriticRepository $criticRepository, $film) {
+        $user = $this->getUser();
+        $userCritic = $criticRepository->findCriticByUserAndFilm($film, $user);
+     
+        if (empty($userCritic)){
+            $userCritic = null;
+        } else {
+            $userCritic = $userCritic[0];
+        }
+
+        return $userCritic;
+    }
+
+    #[Route('/selection/create', name: 'create_selection', methods: "POST")]
+    public function createSelection(Request $request, EntityManagerInterface $manager): Response
+    {
+        $form = $this->createForm(SelectionType::class, new Selection());
+        $form->handleRequest($request);
+        $selection = new Selection(); 
+        $selection->setUser($this->getUser()); 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($selection);
+            $manager->flush();
+    
+    
+            return $this->redirectToRoute($request->headers->get('referer'));
+        }
+    
+       /*  return $this->render('your_template.html.twig', [
+            'form' => $form->createView(),
+        ]); */
+    }
+
+    private function handleCriticForm(FormInterface $form, Film $film, EntityManagerInterface $manager): bool
+{
+    if ($form->isSubmitted() && $form->isValid()) {
+        $critic = $form->getData();
+        $critic->setUser($this->getUser());
+        $critic->setFilm($film);
+        $critic->setDate(new \DateTime('@'.strtotime('now')));
+        $manager->persist($critic);
+        $manager->flush();
+
+        $newNoteFilm = (int) $criticRepository->getAverageNoteByFilm($film);
+        $film->setRating($newNoteFilm);
+
+        return true;
+    }
+
+    return false;
+}
+
+
+  /*   #[Route('/selection/create', name: 'create_selection')]
+    public function createSelection(Request $request, EntityManagerInterface $manager): Response
+    {
+        $selection = new Selection();
+        $form = $this->createForm(SelectionType::class, $selection);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($selection);
+            $manager->flush();
+    
+            return $this->redirectToRoute('success_page');
+        }
+    
+        $createSelection =  $form->createView();   
+    } */
+    
+
+}

@@ -1,0 +1,31 @@
+<section id="movies" class="movies-section">
+    {% include 'homepage/_search_bar.html.twig' %}
+	<h2 class="title">LISTE DES FILMS <span class="movies-count">({{ films.getTotalItemCount }})</span> </h2> 
+    {% if films is empty  %}
+        <p>Aucun film ne correspond à vos critères<p>
+    {% endif %}
+	<div class="movies-list">
+     
+		{% for film in films %}
+            {% set userLike = false %}
+
+            {% for user in film.users %}
+                {% if app.user and app.user.id is same as user.id %}
+                    {% set userLike = true %}
+                {% endif %}
+            {% endfor %}
+
+            <div class="movie-card">
+                <p class="movie-card-rating"> {{ film.rating }}</p> 
+                <a href={{ path('film_show', { 'id' : film.id}) }} >
+                    <div class="movie-card-poster">
+                        <img src="{{ film.poster }}" alt="affiche du film">
+                    </div>
+                </a>     
+            </div>
+		{% endfor %}
+	</div>
+	<div class="pagination">
+		{{knp_pagination_render(films)}}
+	</div>
+</section>

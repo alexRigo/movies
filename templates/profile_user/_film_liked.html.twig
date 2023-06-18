@@ -1,0 +1,22 @@
+<div class="films-liked">
+{% if films | length > 0 %}
+    <div class="list-films">
+    {% for film in films %}
+        <div class="film-card">	
+            <div class="film-poster">
+                <img src={{film.poster}} alt="Affiche du film {{film.title}}">
+            </div>
+            <h3 class="film-title">{{film.title}}</h3>
+            <a class="film-unlike" href={{ path('unlike', { 'film': film.id, 'origin': app.request.requesturi }) }} >
+                <img src=" {{asset('build/images/heart-full.png')}}" alt="Coeur">
+                <span>Je n'aime plus<span>
+            </a>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <div class="empty-message-box">
+        <p> Vous n'avez aimé aucun film pour le moment</p>
+    </div>  
+{% endif %}
+</div>

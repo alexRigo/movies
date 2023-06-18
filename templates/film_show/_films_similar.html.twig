@@ -1,0 +1,14 @@
+<section>
+    <h2 class="section-title">VOUS POURRIEZ AIMER</h2>
+    <div class="carousel similars-films">
+        {% for film in similarsFilms %}
+            <div class="carousel-cell film-cover">
+            	<a href={{ path('film_show', { 'id' : film.id}) }} >
+                    <div class="movie-card-poster">
+                        <img src="{{ film.poster }}" alt="affiche du film">
+                    </div>
+			    </a>
+            </div>
+        {% endfor %}
+    </div>
+</section>

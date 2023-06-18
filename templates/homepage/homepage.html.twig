@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Movies - Recherche et critiques de films {% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags('homepage') }}
+    {{ encore_entry_link_tags('slider') }} 
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+
+	<section class="container homepage">
+		{% include 'homepage/_filters.html.twig' %}
+		{% include 'homepage/_list_films.html.twig' %}
+		<div id="show-filters" class="filters-button-mobile">
+			<p>Filtres</p>
+		</div>
+</section>
+
+	{% block javascripts %}
+		{{ parent() }}
+		{{ encore_entry_script_tags('homepage') }}
+		{{ encore_entry_script_tags('slider') }}
+	{% endblock %}
+
+{% endblock %}

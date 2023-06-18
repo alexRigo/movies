@@ -1,0 +1,103 @@
+
+@import './variables.scss';
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 40px;
+    color: white;
+    background: $background;
+    background-image: linear-gradient(180deg,rgba(0,0,0,.7) 10%,transparent);
+}
+
+.header-logo {
+    font-family: 'Allerta Stencil', sans-serif;
+    display: flex;
+    align-items: center;
+    font-size: 2.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    a {
+        color: white;
+    }
+
+    img {
+        position: relative;
+        top: -4px;
+        height: 50px;
+    }
+}
+
+.header-user ul {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    gap: 10px;
+
+    .header-user-photo img {
+        width: 40px;
+        height: 40px;
+        margin-left: 10px;
+        border: 2px solid white;
+        border-radius: 50%;
+        cursor: pointer;    
+    }   
+}
+
+.user-menu-wrap { 
+    display: none;
+    position: absolute;
+    top: 76px;
+    right: 15px;
+    padding: 15px 53px;
+    z-index: 1000;
+    box-shadow: 0 0 10px #000000; 
+    text-align: center;
+    border-radius: 5px;
+    background: white;
+
+    a {
+        display: flex;
+        flex-direction: column;
+        color: $background;
+    
+        &:hover {
+            color:  $primary;
+        }
+    }
+}
+
+.user-menu-wrap.show {
+    display: block;
+    max-height: 400px;
+}
+
+.user-menu-profil:after {
+    height: 1px;
+    margin: 10px 0;
+    background: #b0b0b1;
+    content: "";
+}
+
+.user-menu-profil strong {
+    margin-bottom: 15px;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .header-logo {
+        font-size: 1.9rem;
+    }
+}
+
+@media (max-width: 475px) {
+    .header {
+        padding: 8px 20px;
+    }
+
+    .header-logo span {
+        display: none;
+    } 
+}

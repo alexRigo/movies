@@ -1,0 +1,44 @@
+{% extends 'base_blank.html.twig' %}
+
+{% block title %}
+	Registration | Movies
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+	{{ encore_entry_link_tags('security') }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="registration">
+		<a class="logo" href="{{path('homepage')}}">
+			<img src="{{asset('build/images/popcorn.png') }}">
+			<span>MOVIES</span>
+		</a>
+		
+		<h3 class="registration-title">Save your account now</h3>
+	
+		{{ form_start(form, {'attr': {'data-check-username-url': path('check_username')}}) }}
+			{{form_row(form.username)}}
+			<p class="error-message" id="username-message"><p>
+			{{form_row(form.password)}}
+			<ul id="password-constraints">
+				<li class="error-message" id="minimum">Doit contenir au moins 6 caractères</li>
+				<li class="error-message" id="uppercase">Doit contenir une majuscule</li>
+				<li class="error-message" id="special-character">Doit contenir un caractère spécial</li>
+			</ul>
+			<p class="error-message" id="password-verify-message"></p>
+			{{form_row(form.email)}}
+			<p class="error-message" id="email-message"><p>
+		{{ form_end(form) }}
+
+		<p> Déjà membre? <a href="{{path('login')}}">Connecte-toi</a> </p>
+	</div>
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('security') }}
+{% endblock %}
+
+{% endblock %}

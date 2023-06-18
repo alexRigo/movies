@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+	{{ encore_entry_link_tags('filmShow') }}
+    {{ encore_entry_link_tags('critics') }}
+    {{ encore_entry_link_tags('addFilmToPlaylist') }}
+    {{ encore_entry_link_tags('buttons') }}
+{% endblock %}
+
+
+{% block body %}
+    <div class="overlay"></div>
+    <div class="container film-show">
+        <div>
+            {% include 'film_show/_add_playlist.html.twig' %}
+            {% include 'film_show/_film_infos.html.twig' %}
+            {% include 'film_show/_films_similar.html.twig' %}
+            {% include 'film_show/_critics.html.twig' %}
+        </div>
+    </div>
+
+	{% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('critics') }} 
+    	{{ encore_entry_script_tags('duration') }} 
+		{{ encore_entry_script_tags('rating') }}
+		{{ encore_entry_script_tags('truncate') }}
+        {{ encore_entry_script_tags('addFilmToPlaylist') }}        
+        {{ encore_entry_script_tags('showPlaylistFilms') }}
+        {{ encore_entry_script_tags('caroussel') }} 
+	{% endblock %}
+
+{% endblock %}

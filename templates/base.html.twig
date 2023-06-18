@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+            <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css2?family=Allerta+Stencil&family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+            {{ encore_entry_link_tags('normalize') }}
+            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_link_tags('buttons') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('normalize') }}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+        {% block header %}
+            {{ render(controller('App\\Controller\\HeaderController')) }}
+        {% endblock %}
+         
+    </head>
+    <body>
+     
+        {% block body %}
+          
+
+
+        {% endblock %}
+
+        {% block footer %}
+            {% include 'layout/footer.html.twig' %}
+        {% endblock %}
+    </body>
+</html>

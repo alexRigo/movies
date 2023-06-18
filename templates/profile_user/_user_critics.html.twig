@@ -1,0 +1,35 @@
+<div class="user-critics">
+{% if critics | length > 0 %}
+    <div class="list-critics">
+        {% for critic in critics %}
+        <div class="critic">
+            <div class="left-infos">
+                <div class="film-poster">
+                    <img src="{{critic.film.poster}}" alt="Image du film">
+                </div>
+                <div class="user-image">
+                    <img src="{{critic.user.photo}}" alt="Photo profil utilisateur">
+                </div>
+                <div class="critic-note">{{critic.note}}</div>
+            </div>
+            <div class="right-infos">
+                <p class="critic-film-title">{{critic.film.title}}</p>
+                <h3 class="critic-username"> {{critic.user.username}}</h3>
+                <div class="expandMoreContent" id="showMoreContent{{critic.id}}">
+                    <p class="critic-content"> {{critic.content}}</p>
+                </div>
+                <p class="critic-date">Le {{critic.date|date('d-m-Y')}}</p>
+                <div class="expandMoreHolder">
+                    <span expand-more data-hidetext="Voir moins..." data-showtext="Voir plus..." 
+                        data-target="showMoreContent{{critic.id}}" class="btn-expand-more">Voir plus</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>  
+{% else %}
+    <div class="empty-message-box">
+        <p> Vous n'avez rédigé aucune critique pour le moment</p>
+    </div>
+{% endif %}
+</div>

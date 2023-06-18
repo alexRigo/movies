@@ -1,0 +1,48 @@
+<section class="section-film-infos">
+        <h1 class="film-title mobile"> {{ film.title }}</h1>
+        <img class="film-poster" src="{{film.poster}}"> 
+    <div class="film-infos">
+        <div class="film-infos-left">
+            <h1 class="film-title"> {{ film.title }}</h1>
+            <div>
+                <p class="film-info film-genre">Genre:&nbsp&nbsp&nbsp
+                    <span>
+                    {% for genre in film.genre %}
+                        {{genre.genre}}{{ not loop.last ? ',' }}
+                    {% endfor %}
+                    </span> 
+                </p>
+                <p class="film-info film-director">Réalisé par:&nbsp&nbsp&nbsp<span>{{ film.director }}</span></p>
+                <p class="film-info film-year">Sortie en:&nbsp&nbsp&nbsp<span>{{ film.year }}</span></p>
+                <p class="film-info film-runtime">Durée:&nbsp&nbsp&nbsp<span class="runtime">{{ film.runtime }}</span></p>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="user-actions">
+        <div>
+            {% for user in film.users %}
+                {% if user is same as app.user  %}
+                    <img src="{{asset('build/images/heart-full.png') }}" class="icon"><a href={{ path('unlike', { 'film': film.id, 'origin': app.request.requesturi }) }} >Je n'aime plus</a>
+                {% endif %}
+            {% endfor %}
+            {% if film.users is empty %}
+                <img src="{{asset('build/images/heart-empty.png') }}" class="icon" ><a href={{ path('like', { 'film': film.id, 'origin': app.request.requesturi }) }} >J'aime</a>
+            {% endif %} 
+        </div>
+        <div id="open-popup">
+            <img src="{{asset('build/images/popcorn.png') }}" class="icon">
+            <span>Ajouter à une selection</span>    
+        </div>
+        <div>
+            <a href="#critics">
+                <img src="{{asset('build/images/comment.png') }}" class="icon">
+                <span>Rédiger une critique</span>
+            </a>
+        </div>
+</section>
+<section class="synopsis">
+    <h2 class="section-title">SYNOPSIS</h2>
+    <p class="synopsis-content">{{ film.plot }}</p>
+</section>
+

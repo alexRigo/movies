@@ -1,0 +1,8 @@
+<section class="film-search-bar">
+    {{ form_start(formFilmSearch) }}
+        {{ form_row(formFilmSearch.searchTerm) }}
+        <button type="submit" id="search-button">
+            <img src="{{ asset('build/images/search.svg') }}" alt="Loupe">
+        </button>
+    {{ form_end(formFilmSearch) }}
+</section>

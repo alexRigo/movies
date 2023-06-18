@@ -1,0 +1,82 @@
+<section id='critics'>
+    <h2 class="section-title" >CRITIQUES ({{ film.critics | length }})</h2>
+    
+    {% if not app.user %}
+        <p>Vous devez être connecté pour rédiger une critique</p>
+    {% elseif userCritic in film.critics %}
+        <h3 class="subsection-title">Votre critique</h3>
+        <div class="user-critic" id="user-critic">
+              <div class="left-infos">
+                <div class="user-image">
+                    <img src="{{userCritic.user.photo}}" alt="Photo profil utilisateur">
+                </div>
+                <div class="critic-note">{{userCritic.note}}</div>
+            </div>
+            <div class="right-infos">
+                <h3 class="critic-username"> {{userCritic.user.username}}</h3>
+                <div class="expandMoreContent" id="showMoreContent{{userCritic.id}}">
+                    <p class="critic-content"> {{userCritic.content}}</p>
+                </div>
+                <p class="critic-date">Le {{userCritic.date|date('d-m-Y')}}</p>
+                <div class="expandMoreHolder">
+                    <span expand-more data-hidetext="Voir moins..." data-showtext="Voir plus..." 
+                        data-target="showMoreContent{{userCritic.id}}" class="btn-expand-more">Voir plus
+                    </span>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="write-critic">
+            <p class="subsection-title">Rédiger une critique</p>
+               
+            {{form_start(formCritic)}}
+
+            {{form_row(formCritic.content)}}
+            {{form_row(formCritic.note)}}
+
+            <img class="star" src="{{asset('build/images/star-empty.svg') }}" data-value="1"><!--
+            --><img class="star" src="{{asset('build/images/star-empty.svg') }}" data-value="2"><!--
+            --><img class="star" src="{{asset('build/images/star-empty.svg') }}" data-value="3"><!--
+            --><img class="star" src="{{asset('build/images/star-empty.svg') }}" data-value="4"><!--
+            --><img class="star" src="{{asset('build/images/star-empty.svg') }}" data-value="5"><!--
+            --><img class="star" src="{{asset('build/images/star-empty.svg') }}" data-value="6"><!--
+            --><img class="star" src="{{asset('build/images/star-empty.svg') }}" data-value="7"><!--
+            --><img class="star" src="{{asset('build/images/star-empty.svg') }}" data-value="8"><!--
+            --><img class="star" src="{{asset('build/images/star-empty.svg') }}" data-value="9"><!--
+            --><img class="star" src="{{asset('build/images/star-empty.svg') }}"data-value="10"> 
+                
+            {{form_end(formCritic)}}
+        </div>
+    {% endif %}
+        
+    {% if film.critics|length > 0 %}
+        <div class="critics">
+        <h3 class="subsection-title">Critiques utilisateurs</h3>
+            {% for critic in film.critics|sort|reverse %}
+                {% if critic is not same as (userCritic) %}
+                    <div class="critic">
+                        <div class="left-infos">
+                            <div class="user-image">
+                                <img src="{{critic.user.photo}}" alt="Photo profil utilisateur">
+                            </div>
+                            <div class="critic-note">{{critic.note}}</div>
+                        </div>
+                        <div class="right-infos">
+                            <h3 class="critic-username"> {{critic.user.username}}</h3>
+                            <div class="expandMoreContent" id="showMoreContent{{critic.id}}">
+                                <p class="critic-content"> {{critic.content}}</p>
+                            </div>
+                            <p class="critic-date">Le {{critic.date|date('d-m-Y')}}</p>
+                            <div class="expandMoreHolder">
+                                <span expand-more data-hidetext="Voir moins..." data-showtext="Voir plus..." 
+                                    data-target="showMoreContent{{critic.id}}" class="btn-expand-more">Voir plus</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>Aucune critique de rédigée pour le moment</p>
+    {% endif %}
+</section>

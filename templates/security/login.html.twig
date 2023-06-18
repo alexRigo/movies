@@ -1,0 +1,41 @@
+{% extends 'base_blank.html.twig' %}
+
+{% block title %}
+    Login | Movies
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('security') }}
+{% endblock %}
+
+{% block body %}
+
+    <div class="login">
+		<a class="logo" href="{{path('homepage')}}">
+			<img src="{{asset('build/images/popcorn.png') }}">
+			<span>MOVIES</span>
+		</a>
+
+	    <h3 class="login-title">Connecte toi</h3>
+	
+	    <form action="{{ path('login') }}" method="post">
+            <div>
+                <input type="text" id="username" name="_username" value="{{ last_username }}" placeholder="Pseudo"/>
+            </div>
+            <div>
+                <input type="password" id="password" name="_password" placeholder="Mot de passe"/>
+            </div>
+            {% if error %}
+                <div class="error-message">Adresse mail ou mot de passe invalide</div>
+            {% endif %}
+    
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <button type="submit" class="button">Login</button>
+        </form>
+        
+        <p> Pas encore membre? <a href="{{path('registration')}}">Inscris-toi</a> </p>
+    </div>
+
+{% endblock %}

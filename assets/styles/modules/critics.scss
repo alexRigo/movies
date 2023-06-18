@@ -1,0 +1,84 @@
+/* CRITICS */
+
+.critics {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.critic, .user-critic{
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.critic .film-poster img{
+    width: 40px;
+    height: auto;
+}
+
+.critic-film-title{
+    margin-top: 20px;
+    margin-bottom: 40px;
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.left-infos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 30px;
+    max-width: 74px;
+}
+
+.critic-username {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.expandMoreContent{
+    margin-bottom: 20px;
+    max-height: 97px;
+    overflow: hidden;
+}
+
+.expandMoreContent.expand-active{
+    max-height: none;
+}
+
+.expandMoreHolder{
+    margin-top: 10px;
+    position: absolute;
+    right: 0;
+    margin-right: 40px;
+    font-size: 12px;
+    text-decoration: underline;
+    color: red;
+    cursor: pointer;
+}
+
+.write-critic textarea{
+    width: 100%;
+    height: 200px;
+}
+
+.top-infos{
+    display: flex;
+    align-items: center;
+}
+
+.critic-date{
+    color: grey;
+    font-weight: 200;
+    font-style: italic;
+    font-size: 14px;
+}
+
+.user-image img {
+    width: 40px;
+    height: 40px;
+    margin-left: 10px;
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+}

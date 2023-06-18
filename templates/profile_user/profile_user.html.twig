@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfileUserController!{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+    {{ encore_entry_link_tags('profile_user') }}
+	{{ encore_entry_link_tags('critics') }}
+	{{ encore_entry_link_tags('buttons') }}
+	{{ encore_entry_link_tags('addFilmToPlaylist') }}
+{% endblock %}
+
+{% block body %}
+
+<div class="profile-user">
+	<div class="profile-user-datas">
+		<div class="background-image">
+			<img src="{{user.photo}}" alt="#">
+		</div>
+		<div class="container">
+			<div class="profile-user-infos">
+				<div class="user-photo">	
+					<img src="{{user.photo}}" alt="Photo profil utilisateur">
+				</div>
+				<div class="btn edit-profile-button" href="#">Modifier profil</div>
+				<h4 class="user-username"> {{ user.username }} </h4>
+				<div class="user-date-inscription">
+					<img src="{{ asset('build/images/time.png') }}" alt="Icône horloge">
+					<p>Inscrit le <span>08/09/2019</span> </p>
+				</div>
+			</div>
+			<div class="edit-profile">
+				{% include 'profile_user/_edit_profile.html.twig' %}
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="profile-sections">
+			<ul class="profile-sections-menu">
+				<li class="button one active">Mes films aimés</li>
+				<li class="button two">Mes critiques</li>
+				<li class="button three">Mes selections</li>
+			</ul>
+		</div>
+   
+
+		<div class="profile-sections">
+			<div class="section active" id="one">
+				{% include 'profile_user/_film_liked.html.twig' %}
+			</div> 
+			<div class="section" id="two">
+				 {% include 'profile_user/_user_critics.html.twig' %} 
+			</div>
+			<div class="section" id="three">
+				{% include 'profile_user/_user_selections.html.twig' %} 
+			</div>   
+		</div>
+	</div>
+</div>
+
+{% block javascripts %}
+	{{ parent() }}
+	{{ encore_entry_script_tags('profile_user') }}
+	{{ encore_entry_script_tags('critics') }}
+	{{ encore_entry_script_tags('buttons') }}
+	{{ encore_entry_script_tags('truncate') }}
+	{{ encore_entry_script_tags('addFilmToPlaylist') }}
+	{{ encore_entry_script_tags('showPlaylistFilms') }}
+{% endblock %}
+
+{% endblock %}

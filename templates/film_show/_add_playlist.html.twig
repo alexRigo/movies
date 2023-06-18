@@ -1,0 +1,60 @@
+{% if errorMessage or successMessage  is not null %}
+
+    <p id="popup" class=" popup message"><span class="close-popup">X</span>{{errorMessage}}
+    {{successMessage}}</p>
+{% endif %}
+<div id="popup-selection" class="user-selections popup">
+    <span class="close-popup">X</span>
+    <div class="user-selections-inner">
+       
+        <h2 class="user-selections-title">Vos selections</h2>
+        <p class="message-error"></p>
+        <div class="create-selection selections">
+            <p>Créer une sélection</p>
+            {{ form_start(formCreateSelection) }}
+                {{ form_row(formCreateSelection.name) }}
+                <button type="submit" class="button">Créer playlist</button>
+            {{ form_end(formCreateSelection) }}
+        </div> 
+        <div class="selections">
+            {% for selection in app.user.selections %}
+                <div class="selection">
+                    <form class="selection-form" action="/film/{{app.request.get('id')}}/add" method="POST">
+                        <div class="top-infos">
+                
+                            <input type="checkbox" class="selectionId" name="selectionId" value="{{selection.id}}" checked>
+                            <label for="selectionName">{{selection.name}}</label>
+            
+                            <img data-show="selection-films{{selection.id}}" class="selection-show-films" src="{{ asset('build/images/add-red.svg') }}" alt="icon d'ajout">
+
+                            <input type="submit" class="selection-add-film" value="Ajouter à la sélection">    
+                        
+                        </div>
+                        <div class="movies-count">
+                            <span id="selection-film-count" data-selection={{selection.id}}>{{ selection.film | length }} </span>
+                            <span>films</span>
+                        </div>
+                    </form> 
+                    <div class="selection-films hidden" id="selection-films{{selection.id}}">
+                    {% for film in selection.film %}
+                        <form class="remove-film-form" action="/film/{{film.id}}/filmShow/remove" method="POST">
+                            <div class="selection-film" id="film-{{film.id}}">
+                                <input type="image" class="delete-film-icon" src="{{ asset('build/images/trash.svg') }}" alt="Soumettre">
+                                <img src="{{ film.poster }}" alt="Affiche du film" class="selection-film-poster">
+                                <p class="selection-film-title">{{ film.title }}</p>
+                                <input type="hidden" id="selection-id" name="selection-id" value="{{ selection.id }}">
+                                <input type="hidden" id="film-id" name="film-id" value="{{ film.id }}">
+                            </div> 
+                        </form>
+                    {% endfor %} 
+                    </div> 
+                </div>
+            {% endfor %} 
+        </div>
+    </div>
+     <div class="user-selections-form">
+  
+    </div>
+
+
+</div>

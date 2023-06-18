@@ -1,0 +1,52 @@
+{% block stylesheets %}
+	{{ encore_entry_link_tags('header') }}
+{% endblock %}
+
+{% block body %}
+
+<header class="header">
+	<a class="header-logo" href="{{path('homepage')}}">
+		<img src="{{asset('build/images/popcorn.png') }}">
+		<span>Movies</span>
+	</a>
+	<div class="header-user">
+		<ul>
+			{% if not app.user %}
+				<li class="login">
+					<a href="{{path('login')}}">Se connecter</a>
+				</li>
+				<span>|</span>
+				<li class="button registration">
+					<a href="{{path('registration')}}">S'inscrire</a>
+				</li>
+			{% else %}
+				<li class="username">
+					<a href="{{path('profile_user')}}">
+						{{app.user.username}}
+					</a>
+				</li>
+				<li class="header-user-photo" id="user-photo">
+					<img src="{{app.user.photo}}">
+				</li> 
+			{% endif %}
+		</ul>
+	</div>
+	{% if app.user %}
+		<div class="user-menu-wrap" id="user-menu-wrap">
+			<a href="{{path('profile_user')}}" class="user-menu-profil">
+				<strong>{{app.user.username}}</strong>
+				<span>Voir le profil</span>
+			</a>
+			<a href="{{path('logout')}}" class="user-menu-logout">	
+				<span>Se déconnecter</span>
+			</a>
+	    </div>
+	{% endif %}
+</header>
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('header') }}
+{% endblock %}
+
+
+{% endblock %}

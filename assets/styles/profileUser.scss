@@ -1,0 +1,200 @@
+/* USER INFOS */
+
+.background-image {
+    width: 75%;
+    height: 180px;
+    margin: auto;
+
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+
+    overflow: hidden;
+}
+
+.background-image img {
+    width: 100%;
+    height: 180px;
+
+    filter: blur(1.5rem);
+}
+
+.user-photo {
+    width: 100px;
+    height: 100px;
+    margin-top: -50px;
+    margin-left: -15px;
+
+    border-radius: 50%;
+}
+
+.user-photo img{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+
+    border: 3px solid white;
+    border-radius: 50%;
+}
+
+.user-username {
+    margin: 20px 0;
+
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -.015em;
+}
+
+.user-date-inscription {
+    display: flex;
+    align-items: center;
+
+    color: #81838a;
+    font-size: 15px;
+    font-weight: 100;
+}
+
+.user-date-inscription img{
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
+/* EDIT PROFILE */
+
+.edit-profile {
+    display: none;
+    margin: 15px 0;
+}
+
+.edit-profile-form {
+    margin: 45px 0;
+ }
+
+.edit-profile-form div {
+   margin: 8px 0;
+}
+
+.edit-profile-form label {
+    display: inline-block;
+    width: 130px; 
+}
+
+.edit-profile-form input {
+    border: none;
+    border-bottom: 1px solid black; 
+}
+
+.edit-profile-button, .cancel-edit-profile {
+    position: absolute;
+    right: 300px;
+    padding: 15px 20px
+ }
+
+#edit_profile_submit {
+    margin-top: 10px;
+}
+
+.user-datas{
+    display: flex;
+}
+
+/* PROFILE SECTIONS */
+
+.profile-sections {
+    margin-top: 50px;
+    padding-bottom: 15px;
+}
+
+.profile-sections-menu {
+    display: flex;
+    margin: 0;
+
+    border-bottom: 1.5px solid rgb(173, 172, 172);
+
+    list-style-type: none;
+}
+
+.profile-sections-menu .button {
+    margin-right: 24px;
+    padding: 16px 5px;
+
+    font-size: 15px;
+    font-weight: 400;
+    color: rgb(0, 0, 0);
+
+    cursor: pointer;
+}
+
+.button.active {
+    border-bottom: 3px solid red;
+
+    background-color: rgb(255, 206, 206);
+
+    color: black;
+}
+
+/* FILM CARD */
+
+.film-card {
+    width: 180px;
+    height: 400px;
+    text-align: center;
+}
+
+.list-films{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.films-liked .film-poster{
+    height: 270px;
+}
+.film-poster img{
+    width: 170px;
+    height: auto;
+}
+
+.film-unlike{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: rgb(249, 147, 147)
+}
+
+.film-unlike img{
+    width: 28px;
+    height: 28px;
+}
+
+/* SECTION*/
+
+.section {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    opacity: 0;
+    z-index: -1;
+}
+
+.section.active {
+    position: relative;
+
+    opacity: 1;
+    z-index: 1;
+}
+
+.empty-message-box {
+    height: 300px;
+    width: 75%;
+    margin: auto;
+    line-height: 300px;
+
+    background-color: #FAFAFB;
+
+    text-align: center;
+}
+
+
+

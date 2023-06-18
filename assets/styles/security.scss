@@ -1,0 +1,93 @@
+.registration, .login {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 50vh;
+    transform: translateY(-50%);
+}
+
+.logo {
+    font-family: 'Allerta Stencil', sans-serif;
+    display: flex;
+    align-items: center;
+    font-size: 2.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    a {
+        color: white;
+    }
+
+    img {
+        position: relative;
+        top: -4px;
+        height: 50px;
+    }
+}
+
+.login-title, .registration-title {
+    margin-top: 20px;
+    font-size: 22px;
+}
+
+form {
+    padding: 20px 30px;
+
+    input {
+        margin: 7px 0px;
+        padding-left: 10px;
+        width: 300px;
+        height: 50px;
+        border: 1px solid rgb(197, 197, 197);
+        border-radius: 5px;
+        background-color: rgb(241, 241, 241);
+    
+        &::placeholder {
+            letter-spacing: 1px;
+        }
+    }
+
+    input.validate {
+        border: 3px solid rgb(129, 255, 129);
+     /*    background-color: rgb(240, 255, 240); */
+
+    }
+
+    input.error {
+        border: 3px solid rgb(162, 59, 59);
+       /*  background-color: rgb(255, 226, 226); */
+    }
+
+
+    .button {
+        display: block; 
+        margin: 12px auto;
+    } 
+
+    .error-message {
+        font-size: 12px;
+        font-weight: 200;
+        color: rgb(162, 59, 59);
+    }
+
+    .error-message.valid {
+        color: rgb(11, 135, 0);
+    }
+  /*   p.default, #error#default {
+        font-size: 12px;
+        font-weight: 200;
+        color: rgb(162, 59, 59); 
+    }
+
+    .p.valid, li.valid{
+        color: rgb(16, 109, 0); 
+    } */
+
+    #password-constraints {
+        display: none;
+    }
+}
+
+
+

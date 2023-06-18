@@ -1,0 +1,34 @@
+<section id="filters" class="filters-section">
+    <span class="close-filters">X</span>
+	<h2 class="filters-title">Filtres</h2>
+
+	<div class="filters-form">
+		{{form_start(form)}}
+			<h3 class="filters-category">Genres</h3>
+			<div class="filters-genre-section">
+				{% for checkbox in form.genre.children %}
+					<div class="filters-genre">
+						{{ form_widget(checkbox) }}
+						{{ form_label(checkbox) }}
+						{{ form_errors(checkbox) }}
+					</div>
+				{% endfor %}
+			</div>
+
+			<h3 class="filters-category">Durée (en minutes)</h3>
+			<div class="filters-duration">
+				{{form_row(form.min)}}  
+				{{form_row(form.max)}} 
+			</div>
+			
+			<div id="slider" class="filters-slider"></div>
+			
+			<h3 class="filters-category">Trier par</h3>
+			{{form_row(form.sort)}}
+
+			<div class="submit-button">
+				<button class="button filters-submit" type="submit">FILTRER</button>
+			</div> 
+		{{form_end(form)}}
+	</div>
+</section>
